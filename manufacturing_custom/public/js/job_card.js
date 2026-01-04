@@ -2,7 +2,6 @@ frappe.ui.form.on("Job Card", {
 	refresh(frm) {
 		update_raw_material_total(frm);
 
-		// 🔥 Delay override so ERPNext cannot re-override it
 		setTimeout(() => {
 			override_complete_job(frm);
 		}, 300);
@@ -13,7 +12,9 @@ frappe.ui.form.on("Job Card", {
 	}
 });
 
-// 🔥 RAW MATERIAL TOTAL
+// ------------------------------
+// RAW MATERIAL TOTAL
+// ------------------------------
 function update_raw_material_total(frm) {
 	let total = 0;
 	(frm.doc.items || []).forEach(row => {
@@ -22,14 +23,14 @@ function update_raw_material_total(frm) {
 	frm.set_value("custom_raw_material_total_quantity", total);
 }
 
-// 🔥 FORCE COMPLETE JOB FOR ALL STAGES
+// ------------------------------
+// COMPLETE JOB (AUTO SUBMIT)
+// ------------------------------
 function override_complete_job(frm) {
 
-	// REMOVE ERPNext BUTTON
-	frm.page.clear_primary_action();
-
-	// APPLY FOR ALL DRAFT JOB CARDS
 	if (frm.doc.docstatus !== 0) return;
+
+	frm.page.clear_primary_action();
 
 	frm.page.set_primary_action(__("Complete Job"), () => {
 
@@ -52,8 +53,8 @@ function override_complete_job(frm) {
 				frm.set_value("total_completed_qty", values.completed_qty);
 				frm.set_value("status", "Completed");
 
-				// 🔥 SAVE ONLY → NO OPERATION VALIDATION
-				frm.save();
+				// 🔥 THIS IS THE KEY CHANGE
+				frm.submit();   // ✅ triggers on_submit()
 			},
 			__("Enter Completed Quantity"),
 			__("Complete")
