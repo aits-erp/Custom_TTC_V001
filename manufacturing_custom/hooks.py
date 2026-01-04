@@ -9,6 +9,11 @@ override_doctype_class = {
     "Job Card": "manufacturing_custom.overrides.job_card.CustomJobCard"
 }
 
+doctype_js = {
+    "Job Card": "public/js/job_card.js"
+}
+
+
 # Apps
 # ------------------
 
