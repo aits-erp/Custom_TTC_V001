@@ -5,9 +5,12 @@ app_description = "sai"
 app_email = "sai@aitsind.com"
 app_license = "mit"
 # Disable Job Card completed qty validation
+
 override_doctype_class = {
-    "Job Card": "manufacturing_custom.overrides.job_card.CustomJobCard"
+    "Job Card": "manufacturing_custom.overrides.job_card.CustomJobCard",
+    "Work Order": "manufacturing_custom.overrides.work_order.CustomWorkOrder"
 }
+
 
 # doctype_js = {
 #     "Job Card": "public/js/job_card.js"

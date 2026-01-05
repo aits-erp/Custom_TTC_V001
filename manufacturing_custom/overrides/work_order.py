@@ -3,13 +3,10 @@ from erpnext.manufacturing.doctype.work_order.work_order import WorkOrder
 
 class CustomWorkOrder(WorkOrder):
 
-    def validate(self):
-        # Allow standard validation flow
+    # 🔥 THIS IS THE REAL VALIDATION
+    def validate_completed_qty_against_previous_operation(self):
         pass
 
-    # ---- Disable qty consistency checks only ----
-    def validate_total_completed_qty(self):
-        pass
-
-    def validate_production_completed_qty(self):
+    # (extra safety – no harm)
+    def validate_completed_qty(self):
         pass
